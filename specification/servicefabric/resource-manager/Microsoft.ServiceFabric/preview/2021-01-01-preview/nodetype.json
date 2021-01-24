@@ -3,7 +3,7 @@
   "info": {
     "title": "ServiceFabricManagementClient",
     "description": "Azure Service Fabric Resource Provider API Client",
-    "version": "2020-01-01-preview"
+    "version": "2021-01-01-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -51,11 +51,6 @@
             "type": "string"
           }
         ],
-        "x-ms-examples": {
-          "List node type of the specified managed cluster": {
-            "$ref": "./examples/Operations_example.json"
-          }
-        },
         "responses": {
           "200": {
             "description": "OK. The request has succeeded.",
@@ -537,6 +532,38 @@
     }
   },
   "definitions": {
+    "ManagedProxyResource": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Azure resource identifier.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Azure resource name.",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "Azure resource type.",
+          "readOnly": true
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Azure resource tags.",
+          "x-ms-mutability": [
+            "create",
+            "read"
+          ]
+        }
+      },
+      "description": "The resource model definition for proxy-only resource.",
+      "x-ms-azure-resource": true
+    },
     "NodeType": {
       "allOf": [
         {
@@ -654,10 +681,13 @@
             "$ref": "#/definitions/VMSSExtension"
           }
         },
+        "vmManagedIdentity": {
+          "$ref": "#/definitions/VmManagedIdentity"
+        },
         "provisioningState": {
           "$ref": "#/definitions/ManagedResourceProvisioningState",
-          "description": "The provisioning state of the managed cluster resource.",
-          "readOnly": true
+          "readOnly": true,
+          "description": "The provisioning state of the managed cluster resource."
         }
       },
       "description": "Describes a node type in the cluster, each node type represents sub set of nodes in the cluster."
@@ -684,7 +714,7 @@
         "vmInstanceCount": {
           "type": "integer",
           "format": "int32",
-          "description": "The number of nodes in the node type. This count should match the capacity property in the corresponding VirtualMachineScaleSet resource.",
+          "description": "The number of nodes in the node type.",
           "minimum": 1,
           "maximum": 2147483647
         },
@@ -727,6 +757,9 @@
           "items": {
             "$ref": "#/definitions/VMSSExtension"
           }
+        },
+        "vmManagedIdentity": {
+          "$ref": "#/definitions/VmManagedIdentity"
         }
       },
       "description": "Node type update properties."
@@ -747,54 +780,6 @@
         }
       },
       "description": "Node type update request"
-    },
-    "ManagedProxyResource": {
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Azure resource identifier.",
-          "readOnly": true
-        },
-        "name": {
-          "type": "string",
-          "description": "Azure resource name.",
-          "readOnly": true
-        },
-        "type": {
-          "type": "string",
-          "description": "Azure resource type.",
-          "readOnly": true
-        },
-        "tags": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Azure resource tags.",
-          "x-ms-mutability": [
-            "create",
-            "read"
-          ]
-        }
-      },
-      "description": "The resource model definition for proxy-only resource.",
-      "x-ms-azure-resource": true
-    },
-    "ManagedResourceProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of the managed resource.",
-      "enum": [
-        "None",
-        "Creating",
-        "Created",
-        "Updating",
-        "Succeeded",
-        "Failed",
-        "Canceled",
-        "Deleting",
-        "Deleted",
-        "Other"
-      ]
     },
     "SubResource": {
       "properties": {
@@ -843,6 +828,18 @@
       },
       "description": "Specifies set of certificates that should be installed onto the virtual machines."
     },
+    "VmManagedIdentity": {
+      "properties": {
+        "userAssignedIdentities": {
+          "type": "array",
+          "description": "The list of user identities associated with the virtual machine scale set under the node type. Each entry will be an ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Identities for the virtual machine scale set under the node type."
+    },
     "VMSSExtension": {
       "required": [
         "name",
@@ -868,10 +865,6 @@
         "typeHandlerVersion"
       ],
       "properties": {
-        "forceUpdateTag": {
-          "type": "string",
-          "description": "If a value is provided and is different from the previous value, the extension handler will be forced to update even if the extension configuration has not changed."
-        },
         "publisher": {
           "type": "string",
           "description": "The name of the extension handler publisher."
@@ -896,10 +889,9 @@
           "type": "object",
           "description": "The extension can contain either protectedSettings or protectedSettingsFromKeyVault or no protected settings at all."
         },
-        "provisioningState": {
-          "readOnly": true,
+        "forceUpdateTag": {
           "type": "string",
-          "description": "The provisioning state, which only appears in the response."
+          "description": "If a value is provided and is different from the previous value, the extension handler will be forced to update even if the extension configuration has not changed."
         },
         "provisionAfterExtensions": {
           "type": "array",
@@ -907,6 +899,11 @@
             "type": "string"
           },
           "description": "Collection of extension names after which this extension needs to be provisioned."
+        },
+        "provisioningState": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The provisioning state, which only appears in the response."
         }
       },
       "description": "Describes the properties of a Virtual Machine Scale Set Extension."
@@ -971,6 +968,22 @@
       },
       "description": "The error details."
     },
+    "ManagedResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of the managed resource.",
+      "enum": [
+        "None",
+        "Creating",
+        "Created",
+        "Updating",
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Deleting",
+        "Deleted",
+        "Other"
+      ]
+    },
     "OperationListResult": {
       "properties": {
         "value": {
@@ -1014,13 +1027,13 @@
     "api-version": {
       "name": "api-version",
       "in": "query",
-      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2020-01-01-preview\" for this specification.",
+      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2021-01-01-preview\" for this specification.",
       "required": true,
       "type": "string",
       "enum": [
-        "2020-01-01-preview"
+        "2021-01-01-preview"
       ],
-      "default": "2020-01-01-preview",
+      "default": "2021-01-01-preview",
       "x-ms-parameter-location": "client"
     },
     "clusterNameParameter": {
