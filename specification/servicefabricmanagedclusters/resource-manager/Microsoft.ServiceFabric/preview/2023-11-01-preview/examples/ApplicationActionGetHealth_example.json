@@ -3,11 +3,13 @@
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "resRg",
     "clusterName": "myCluster",
-    "nodeTypeName": "BE",
+    "applicationName": "myApp",
     "api-version": "2023-11-01-preview",
-    "parameters": {
-      "updateType": "ByUpgradeDomain"
-    }
+    "eventsHealthStateFilter": "Ok",
+    "deployedApplicationsHealthStateFilter": "Ok",
+    "servicesHealthStateFilter": "Warning",
+    "excludeHealthStatistics": "Ok",
+    "timeout": 65
   },
   "responses": {
     "202": {
