@@ -3,7 +3,7 @@
   "info": {
     "title": "ServiceFabricManagementClient",
     "description": "Azure Service Fabric Resource Provider API Client",
-    "version": "2023-09-01-preview"
+    "version": "2023-11-01-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -569,6 +569,291 @@
             "schema": {
               "$ref": "#/definitions/ApplicationTypeVersionResourceList"
             }
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applications/{applicationName}/fetchUpgradeStatus": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Applications_ReadUpgrade",
+        "summary": "Get the status of the latest application upgrade.",
+        "description": "Get the status of the latest application upgrade. It will query the cluster to find the status of the latest application upgrade.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/applicationName"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          }
+        ],
+        "x-ms-examples": {
+          "Get an application upgrade": {
+            "$ref": "./examples/ApplicationActionGetUpgrade_example.json"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "responses": {
+          "202": {
+            "description": "The operation was accepted."
+          },
+          "200": {
+            "description": "The operation completed successfully."
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applications/{applicationName}/startRollback": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Applications_StartRollback",
+        "summary": "Send a request to start a rollback of the current application upgrade.",
+        "description": "Send a request to start a rollback of the current application upgrade. This will start rolling back the application to the previous version.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/applicationName"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          }
+        ],
+        "x-ms-examples": {
+          "Start an application upgrade rollback": {
+            "$ref": "./examples/ApplicationActionStartRollback_example.json"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "responses": {
+          "202": {
+            "description": "The operation was accepted."
+          },
+          "200": {
+            "description": "The operation completed successfully."
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applications/{applicationName}/resumeUpgrade": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Applications_ResumeUpgrade",
+        "summary": "Send a request to resume the current application upgrade.",
+        "description": "Send a request to resume the current application upgrade. This will resume the application upgrade from where it was paused.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/applicationName"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "description": "The parameters for resuming an application upgrade.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RuntimeResumeApplicationUpgradeParameters"
+            },
+            "x-ms-parameter-location": "method"
+          }
+        ],
+        "x-ms-examples": {
+          "Resume upgrade": {
+            "$ref": "./examples/ApplicationActionResumeUpgrade_example.json"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "responses": {
+          "202": {
+            "description": "The operation was accepted."
+          },
+          "200": {
+            "description": "The operation completed successfully."
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applications/{applicationName}/updateUpgrade": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Applications_UpdateUpgrade",
+        "summary": "Send a request to update the current application upgrade.",
+        "description": "Send a request to update the current application upgrade. This will update the application upgrade settings for the current upgrade.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/applicationName"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "description": "The parameters for resuming an application upgrade.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RuntimeApplicationUpgradeUpdateDescription"
+            },
+            "x-ms-parameter-location": "method"
+          }
+        ],
+        "x-ms-examples": {
+          "Update upgrade": {
+            "$ref": "./examples/ApplicationActionUpdateUpgrade_example.json"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "responses": {
+          "202": {
+            "description": "The operation was accepted."
+          },
+          "200": {
+            "description": "The operation completed successfully."
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applications/{applicationName}/fetchApplicationHealth": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Applications_ReadHealth",
+        "summary": "Send a request to query the current application health.",
+        "description": "Send a request to query the current application health based on the query parameters passed in.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/applicationName"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          },
+          {
+            "$ref": "#/parameters/EventsHealthStateFilterOptionalQueryParam"
+          },
+          {
+            "$ref": "#/parameters/DeployedApplicationsHealthStateFilterOptionalQueryParam"
+          },
+          {
+            "$ref": "#/parameters/ServicesHealthStateFilterOptionalQueryParam"
+          },
+          {
+            "$ref": "#/parameters/ExcludeHealthStatisticsOptionalQueryParam"
+          },
+          {
+            "$ref": "#/parameters/TimeoutOptionalQueryParam"
+          }
+        ],
+        "x-ms-examples": {
+          "Get Application Health": {
+            "$ref": "./examples/ApplicationActionGetHealth_example.json"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "responses": {
+          "202": {
+            "description": "The operation was accepted."
+          },
+          "200": {
+            "description": "The operation completed successfully."
           },
           "default": {
             "description": "The detailed error response.",
@@ -1162,6 +1447,221 @@
     }
   },
   "definitions": {
+    "RuntimeApplicationHealthPolicy": {
+      "type": "object",
+      "description": "Defines a health policy used to evaluate the health of an application or one of its children entities.\n",
+      "properties": {
+        "considerWarningAsError": {
+          "type": "boolean",
+          "description": "Indicates whether warnings are treated with the same severity as errors.",
+          "default": false
+        },
+        "maxPercentUnhealthyDeployedApplications": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum allowed percentage of unhealthy deployed applications. Allowed values are Byte values from zero to 100.\nThe percentage represents the maximum tolerated percentage of deployed applications that can be unhealthy before the application is considered in error.\nThis is calculated by dividing the number of unhealthy deployed applications over the number of nodes where the application is currently deployed on in the cluster.\nThe computation rounds up to tolerate one failure on small numbers of nodes. Default percentage is zero.\n",
+          "default": 0
+        },
+        "defaultServiceTypeHealthPolicy": {
+          "$ref": "#/definitions/RuntimeServiceTypeHealthPolicy"
+        },
+        "serviceTypeHealthPolicyMap": {
+          "$ref": "#/definitions/RuntimeServiceTypeHealthPolicyMap"
+        }
+      },
+      "x-sf-documentation": {
+        "defaultServiceTypeHealthPolicy": {
+          "description": "The health policy used by default to evaluate the health of a service type."
+        },
+        "serviceTypeHealthPolicyMap": {
+          "description": "The map with service type health policy per service type name. The map is empty by default."
+        }
+      }
+    },
+    "RuntimeApplicationUpgradeUpdateDescription": {
+      "type": "object",
+      "description": "Describes the parameters for updating an ongoing application upgrade.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the application, including the 'fabric:' URI scheme."
+        },
+        "upgradeKind": {
+          "$ref": "#/definitions/RuntimeUpgradeKind"
+        },
+        "applicationHealthPolicy": {
+          "$ref": "#/definitions/RuntimeApplicationHealthPolicy"
+        },
+        "updateDescription": {
+          "$ref": "#/definitions/RuntimeRollingUpgradeUpdateDescription"
+        }
+      },
+      "required": [
+        "name",
+        "upgradeKind"
+      ]
+    },
+    "RuntimeFailureAction": {
+      "type": "string",
+      "description": "The compensating action to perform when a Monitored upgrade encounters monitoring policy or health policy violations.\nRollback specifies that the upgrade will start rolling back automatically.\nManual indicates that the upgrade will switch to UnmonitoredManual upgrade mode.\n",
+      "enum": [
+        "Rollback",
+        "Manual"
+      ],
+      "x-ms-enum": {
+        "name": "FailureAction",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "Rollback",
+            "description": "The upgrade will start rolling back automatically. The value is 0"
+          },
+          {
+            "value": "Manual",
+            "description": "The upgrade will switch to UnmonitoredManual upgrade mode. The value is 1"
+          }
+        ]
+      }
+    },
+    "RuntimeResumeApplicationUpgradeParameters": {
+      "type": "object",
+      "properties": {
+        "upgradeDomainName": {
+          "description": "The upgrade domain name. Expected to be the next upgrade domain if the application is upgrading.",
+          "type": "string"
+        }
+      },
+      "description": "Parameters for Resume Upgrade action. The upgrade domain name must be specified."
+    },
+    "RuntimeRollingUpgradeUpdateDescription": {
+      "type": "object",
+      "description": "Describes the parameters for updating a rolling upgrade of application or cluster.",
+      "properties": {
+        "rollingUpgradeMode": {
+          "$ref": "#/definitions/RuntimeUpgradeMode"
+        },
+        "forceRestart": {
+          "type": "boolean",
+          "description": "If true, then processes are forcefully restarted during upgrade even when the code version has not changed (the upgrade only changes configuration or data).",
+          "default": false
+        },
+        "replicaSetCheckTimeoutInMilliseconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The maximum amount of time to block processing of an upgrade domain and prevent loss of availability when there are unexpected issues. When this timeout expires, processing of the upgrade domain will proceed regardless of availability loss issues. The timeout is reset at the start of each upgrade domain. Valid values are between 0 and 42949672925 inclusive. (unsigned 32-bit integer).",
+          "default": 42949672925
+        },
+        "failureAction": {
+          "$ref": "#/definitions/RuntimeFailureAction"
+        },
+        "healthCheckWaitDurationInMilliseconds": {
+          "type": "string",
+          "description": "The amount of time to wait after completing an upgrade domain before applying health policies. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds."
+        },
+        "healthCheckStableDurationInMilliseconds": {
+          "type": "string",
+          "description": "The amount of time that the application or cluster must remain healthy before the upgrade proceeds to the next upgrade domain. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds."
+        },
+        "healthCheckRetryTimeoutInMilliseconds": {
+          "type": "string",
+          "description": "The amount of time to retry health evaluation when the application or cluster is unhealthy before FailureAction is executed. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds."
+        },
+        "upgradeTimeoutInMilliseconds": {
+          "type": "string",
+          "description": "The amount of time the overall upgrade has to complete before FailureAction is executed. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds."
+        },
+        "upgradeDomainTimeoutInMilliseconds": {
+          "type": "string",
+          "description": "The amount of time each upgrade domain has to complete before FailureAction is executed. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds."
+        },
+        "instanceCloseDelayDurationInSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Duration in seconds, to wait before a stateless instance is closed, to allow the active requests to drain gracefully. This would be effective when the instance is closing during the application/cluster\nupgrade, only for those instances which have a non-zero delay duration configured in the service description.\nNote, the default value of InstanceCloseDelayDurationInSeconds is 4294967295, which indicates that the behavior will entirely depend on the delay configured in the stateless service description.\n",
+          "default": 4294967295
+        }
+      },
+      "required": [
+        "rollingUpgradeMode"
+      ]
+    },
+    "RuntimeServiceTypeHealthPolicy": {
+      "type": "object",
+      "description": "Represents the health policy used to evaluate the health of services belonging to a service type.\n",
+      "properties": {
+        "maxPercentUnhealthyPartitionsPerService": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum allowed percentage of unhealthy partitions per service. Allowed values are Byte values from zero to 100\n\nThe percentage represents the maximum tolerated percentage of partitions that can be unhealthy before the service is considered in error.\nIf the percentage is respected but there is at least one unhealthy partition, the health is evaluated as Warning.\nThe percentage is calculated by dividing the number of unhealthy partitions over the total number of partitions in the service.\nThe computation rounds up to tolerate one failure on small numbers of partitions. Default percentage is zero.\n",
+          "default": 0
+        },
+        "maxPercentUnhealthyReplicasPerPartition": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum allowed percentage of unhealthy replicas per partition. Allowed values are Byte values from zero to 100.\n\nThe percentage represents the maximum tolerated percentage of replicas that can be unhealthy before the partition is considered in error.\nIf the percentage is respected but there is at least one unhealthy replica, the health is evaluated as Warning.\nThe percentage is calculated by dividing the number of unhealthy replicas over the total number of replicas in the partition.\nThe computation rounds up to tolerate one failure on small numbers of replicas. Default percentage is zero.\n",
+          "default": 0
+        },
+        "maxPercentUnhealthyServices": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum maximum allowed percentage of unhealthy services. Allowed values are Byte values from zero to 100.\n\nThe percentage represents the maximum tolerated percentage of services that can be unhealthy before the application is considered in error.\nIf the percentage is respected but there is at least one unhealthy service, the health is evaluated as Warning.\nThis is calculated by dividing the number of unhealthy services of the specific service type over the total number of services of the specific service type.\nThe computation rounds up to tolerate one failure on small numbers of services. Default percentage is zero.\n",
+          "default": 0
+        }
+      }
+    },
+    "RuntimeServiceTypeHealthPolicyMap": {
+      "type": "object",
+      "description": "Defines a ServiceTypeHealthPolicy per service type name.\n\nThe entries in the map replace the default service type health policy for each specified service type.\nFor example, in an application that contains both a stateless gateway service type and a stateful engine service type, the health policies for the stateless and stateful services can be configured differently.\nWith policy per service type, there's more granular control of the health of the service.\n\nIf no policy is specified for a service type name, the DefaultServiceTypeHealthPolicy is used for evaluation.\n"
+    },
+    "additionalProperties": {
+      "$ref": "#/definitions/RuntimeServiceTypeHealthPolicy"
+    },
+    "RuntimeUpgradeKind": {
+      "type": "string",
+      "description": "The kind of upgrade out of the following possible values.",
+      "default": "Rolling",
+      "enum": [
+        "Rolling"
+      ],
+      "x-ms-enum": {
+        "name": "UpgradeKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "Rolling",
+            "description": "The upgrade progresses one upgrade domain at a time. The value is 0"
+          }
+        ]
+      }
+    },
+    "RuntimeUpgradeMode": {
+      "type": "string",
+      "description": "The mode used to monitor health during a rolling upgrade. The values are UnmonitoredAuto, UnmonitoredManual, Monitored, and UnmonitoredDeferred.",
+      "enum": [
+        "UnmonitoredAuto",
+        "UnmonitoredManual",
+        "Monitored"
+      ],
+      "default": "Monitored",
+      "x-ms-enum": {
+        "name": "UpgradeMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "UnmonitoredAuto",
+            "description": "The upgrade will proceed automatically without performing any health monitoring. The value is 0"
+          },
+          {
+            "value": "UnmonitoredManual",
+            "description": "The upgrade will stop after completing each upgrade domain, giving the opportunity to manually monitor health before proceeding. The value is 1"
+          },
+          {
+            "value": "Monitored",
+            "description": "The upgrade will stop after completing each upgrade domain and automatically monitor health before proceeding. The value is 2"
+          }
+        ]
+      }
+    },
     "AddRemoveIncrementalNamedPartitionScalingMechanism": {
       "type": "object",
       "description": "Represents a scaling mechanism for adding or removing named partitions of a stateless service. Partition names are in the format '0','1'...'N-1'.",
@@ -2729,10 +3229,63 @@
     }
   },
   "parameters": {
+    "DeployedApplicationsHealthStateFilterOptionalQueryParam": {
+      "name": "DeployedApplicationsHealthStateFilter",
+      "description": "Allows filtering of the deployed applications health state objects returned in the result of application health query based on their health state.\nThe possible values for this parameter include integer value of one of the following health states. Only deployed applications that match the filter will be returned.\nAll deployed applications are used to evaluate the aggregated health state. If not specified, all entries are returned.\nThe state values are flag-based enumeration, so the value could be a combination of these values, obtained using bitwise 'OR' operator.\nFor example, if the provided value is 6 then health state of deployed applications with HealthState value of OK (2) and Warning (4) are returned.\n\n- Default - Default value. Matches any HealthState. The value is zero.\n- None - Filter that doesn't match any HealthState value. Used in order to return no results on a given collection of states. The value is 1.\n- Ok - Filter that matches input with HealthState value Ok. The value is 2.\n- Warning - Filter that matches input with HealthState value Warning. The value is 4.\n- Error - Filter that matches input with HealthState value Error. The value is 8.\n- All - Filter that matches input with any HealthState value. The value is 65535.\n",
+      "in": "query",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": false,
+      "default": "Default"
+    },
+    "EventsHealthStateFilterOptionalQueryParam": {
+      "name": "EventsHealthStateFilter",
+      "description": "Allows filtering the collection of HealthEvent objects returned based on health state.\nThe possible values for this parameter include integer value of one of the following health states.\nOnly events that match the filter are returned. All events are used to evaluate the aggregated health state.\nIf not specified, all entries are returned. The state values are flag-based enumeration, so the value could be a combination of these values, obtained using the bitwise 'OR' operator. For example, If the provided value is 6 then all of the events with HealthState value of OK (2) and Warning (4) are returned.\n\n- Default - Default value. Matches any HealthState. The value is zero.\n- None - Filter that doesn't match any HealthState value. Used in order to return no results on a given collection of states. The value is 1.\n- Ok - Filter that matches input with HealthState value Ok. The value is 2.\n- Warning - Filter that matches input with HealthState value Warning. The value is 4.\n- Error - Filter that matches input with HealthState value Error. The value is 8.\n- All - Filter that matches input with any HealthState value. The value is 65535.\n",
+      "in": "query",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": false,
+      "default": "Default"
+    },
+    "ExcludeHealthStatisticsOptionalQueryParam": {
+      "name": "ExcludeHealthStatistics",
+      "description": "Indicates whether the health statistics should be returned as part of the query result. False by default.\nThe statistics show the number of children entities in health state Ok, Warning, and Error.\n",
+      "in": "query",
+      "x-ms-parameter-location": "method",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "ServicesHealthStateFilterOptionalQueryParam": {
+      "name": "ServicesHealthStateFilter",
+      "description": "Allows filtering of the services health state objects returned in the result of services health query based on their health state.\nThe possible values for this parameter include integer value of one of the following health states.\nOnly services that match the filter are returned. All services are used to evaluate the aggregated health state.\nIf not specified, all entries are returned. The state values are flag-based enumeration, so the value could be a combination of these values,\nobtained using bitwise 'OR' operator. For example, if the provided value is 6 then health state of services with HealthState value of OK (2) and Warning (4) will be returned.\n\n- Default - Default value. Matches any HealthState. The value is zero.\n- None - Filter that doesn't match any HealthState value. Used in order to return no results on a given collection of states. The value is 1.\n- Ok - Filter that matches input with HealthState value Ok. The value is 2.\n- Warning - Filter that matches input with HealthState value Warning. The value is 4.\n- Error - Filter that matches input with HealthState value Error. The value is 8.\n- All - Filter that matches input with any HealthState value. The value is 65535.\n",
+      "in": "query",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": false,
+      "default": "Default"
+    },
+    "TimeoutOptionalQueryParam": {
+      "name": "timeout",
+      "in": "query",
+      "x-ms-parameter-location": "method",
+      "type": "integer",
+      "format": "int64",
+      "required": false,
+      "minimum": 1,
+      "maximum": 4294967295,
+      "default": 60,
+      "description": "The server timeout for performing the operation in seconds. This timeout specifies the time duration that the client is willing to wait for the requested operation to complete. The default value for this parameter is 60 seconds.",
+      "x-sf-codegen": {
+        "CSharp": {
+          "CodegenName": "serverTimeout"
+        }
+      }
+    },
     "api-version": {
       "name": "api-version",
       "in": "query",
-      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2023-09-01-preview\" for this specification.",
+      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2023-11-01-preview\" for this specification.",
       "required": true,
       "type": "string",
       "x-ms-parameter-location": "client"
