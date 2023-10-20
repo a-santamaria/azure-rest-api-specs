@@ -243,6 +243,9 @@ suppressions:
 
   - code: PutResponseSchemaDescription
     reason: service created with the 202 pattern before this rule was introduced.
+  
+  - code: LroErrorContent
+    reason: Work planned (https://msazure.visualstudio.com/One/_workitems/edit/24841215) but its going to take some time because we generate the swagger from an internal repo that currently can't reference the common types.
 ```
 
 ---
