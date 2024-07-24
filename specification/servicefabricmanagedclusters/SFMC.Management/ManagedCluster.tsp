@@ -65,12 +65,12 @@ interface ManagedClusters {
   /**
    * Action to get Az Resiliency Status of all the Base resources constituting Service Fabric Managed Clusters.
    */
-  get is ArmResourceActionSync<ManagedCluster, void, ManagedAzResiliencyStatus>;
+  getAzResiliencyStatus is ArmResourceActionSync<ManagedCluster, void, ManagedAzResiliencyStatus>;
 
   /**
    * Action to get Maintenance Window Status of the Service Fabric Managed Clusters.
    */
-  get is ArmResourceActionSync<
+  getMaintenanceWindowStatus is ArmResourceActionSync<
     ManagedCluster,
     void,
     ManagedMaintenanceWindowStatus
@@ -79,7 +79,7 @@ interface ManagedClusters {
   /**
    * Action to Apply Maintenance window on the Service Fabric Managed Clusters, right now. Any pending update will be applied.
    */
-  post is ArmResourceActionSync<ManagedCluster, void, void>;
+  applyMaintenanceWindow is ArmResourceActionSync<ManagedCluster, void, void>;
 }
 
 @@doc(ManagedCluster.name, "The name of the cluster resource.");
