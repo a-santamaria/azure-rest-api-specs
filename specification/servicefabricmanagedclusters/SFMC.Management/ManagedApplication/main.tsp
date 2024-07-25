@@ -9,16 +9,9 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
+import "./ApplicationResource.tsp";
 import "./ApplicationTypeResource.tsp";
 import "./ApplicationTypeVersionResource.tsp";
-import "./ApplicationResource.tsp";
-import "./ServiceResource.tsp";
-import "./ManagedCluster.tsp";
-import "./ManagedClusterCodeVersionResult.tsp";
-import "./ManagedClusterCodeVersionResult.tsp";
-import "./ManagedVMSize.tsp";
-import "./NodeType.tsp";
-import "./routes.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;

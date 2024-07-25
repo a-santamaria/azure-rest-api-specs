@@ -3,7 +3,7 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
 import "@typespec/rest";
 import "./models.tsp";
-import "./ManagedCluster.tsp";
+import "../ManagedCluster/ManagedCluster.tsp";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;

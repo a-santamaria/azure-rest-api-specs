@@ -54,7 +54,7 @@ interface ManagedClusterVersionOperations {
     environment: ManagedClusterVersionEnvironment,
 
     ...SubscriptionIdParameter,
-  ): ArmResponse<void> | ErrorResponse;
+  ): ArmNoContentResponse<"Action completed successfully."> | ErrorResponse;
 }
 
 interface OperationStatusOperations {
@@ -94,5 +94,5 @@ interface OperationResultsOperations {
      */
     @path
     operationId: string,
-  ): ArmResponse<void> | ErrorResponse;
+  ): ArmNoContentResponse<"Action completed successfully."> | ErrorResponse;
 }
