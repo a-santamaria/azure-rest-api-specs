@@ -238,7 +238,7 @@ model ClusterMigrationAgentProperties {
    * The service generated identifier of the migration.
    */
   @visibility(Lifecycle.Read)
-  migrationId: string;
+  migrationId?: string;
 
   /**
    * The resource identifier of the classic Service Fabric cluster to migrate from. The source and the

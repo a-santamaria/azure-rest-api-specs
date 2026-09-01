@@ -758,7 +758,6 @@
         }
       },
       "required": [
-        "migrationId",
         "sourceClusterResourceId",
         "targetClusterResourceId",
         "nodeTypes"
