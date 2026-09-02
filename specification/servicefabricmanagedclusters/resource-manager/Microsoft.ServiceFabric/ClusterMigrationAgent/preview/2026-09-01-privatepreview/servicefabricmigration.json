@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ServiceFabricMigrationManagementClient",
-    "version": "2026-08-01-preview",
+    "version": "2026-09-01-privatepreview",
     "description": "Service Fabric migration management client. Provides the cluster migration agent resource used to move a\nclassic Service Fabric cluster to a Service Fabric managed cluster.",
     "x-typespec-generated": [
       {
@@ -257,9 +257,9 @@
               "$ref": "#/definitions/ClusterMigrationAgent"
             },
             "headers": {
-              "Azure-AsyncOperation": {
+              "Location": {
                 "type": "string",
-                "description": "A link to the status monitor"
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
               },
               "Retry-After": {
                 "type": "integer",
@@ -281,7 +281,7 @@
           }
         },
         "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation",
+          "final-state-via": "location",
           "final-state-schema": "#/definitions/ClusterMigrationAgent"
         },
         "x-ms-long-running-operation": true

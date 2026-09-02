@@ -2,7 +2,7 @@
   "title": "Create or update a migration",
   "operationId": "ClusterMigrationAgents_CreateOrUpdate",
   "parameters": {
-    "api-version": "2026-08-01-preview",
+    "api-version": "2026-09-01-privatepreview",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "resRg",
     "clusterMigrationAgentName": "myClusterMigrationAgent",
@@ -66,7 +66,7 @@
     },
     "201": {
       "headers": {
-        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ServiceFabric/locations/eastus/clusterMigrationAgentOperations/00000000-1111-2222-3333-444444444444?api-version=2026-08-01-preview",
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ServiceFabric/locations/eastus/clusterMigrationAgentOperations/00000000-1111-2222-3333-444444444444?api-version=2026-09-01-privatepreview",
         "Retry-After": 30
       },
       "body": {

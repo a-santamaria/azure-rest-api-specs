@@ -35,7 +35,12 @@ interface ClusterMigrationAgents {
    * Create or update a Service Fabric cluster migration agent resource. The source cluster, the target
    * cluster, and the set of node types cannot be changed after the resource is created.
    */
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<ClusterMigrationAgent>;
+  @Azure.Core.useFinalStateVia("location")
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<
+    ClusterMigrationAgent,
+    LroHeaders = ArmLroLocationHeader<FinalResult = ClusterMigrationAgent> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 
   /**
    * Update the tags of a Service Fabric cluster migration agent resource.
