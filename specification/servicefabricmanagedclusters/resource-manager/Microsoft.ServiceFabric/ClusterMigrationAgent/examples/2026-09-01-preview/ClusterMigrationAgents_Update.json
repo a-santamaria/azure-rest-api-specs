@@ -2,7 +2,7 @@
   "title": "Update the tags of a migration",
   "operationId": "ClusterMigrationAgents_Update",
   "parameters": {
-    "api-version": "2026-09-01-privatepreview",
+    "api-version": "2026-09-01-preview",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "resRg",
     "clusterMigrationAgentName": "myClusterMigrationAgent",
@@ -48,7 +48,7 @@
     },
     "202": {
       "headers": {
-        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ServiceFabric/locations/eastus/clusterMigrationAgentOperationResults/00000000-1111-2222-3333-444444444444?api-version=2026-09-01-privatepreview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ServiceFabric/locations/eastus/operationResults/0xFFF0000000000001?api-version=2026-09-01-preview",
         "Retry-After": 30
       }
     }
